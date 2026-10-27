@@ -1,7 +1,7 @@
 ---
 name: roadmap
-description: Turn research into a phased roadmap of PR-sized work items, or pick up and work one item from an existing roadmap. Use "plan" mid-conversation when the user says there's enough to justify a roadmap ("write the roadmap", "let's turn this into a plan of PRs", "make a punchlist"). Use "work" at the start of a session to take one item from a roadmap doc ("pick up the next roadmap item", "work the roadmap at <path>").
-argument-hint: "plan [topic] | work <roadmap path>"
+description: Turn research into a phased roadmap of PR-sized work items, or pick up and work one item from an existing roadmap. Use "plan" mid-conversation when the user says there's enough to justify a roadmap ("write the roadmap", "let's turn this into a plan of PRs", "make a punchlist"). Use "work" at the start of a session to take one item from a roadmap doc ("pick up the next roadmap item", "work the roadmap at <path>"). Use "unattended" only when the user asks to run a whole roadmap without stopping ("let agents run the roadmap overnight").
+argument-hint: "plan [topic] | work <roadmap path> | unattended <roadmap path>"
 ---
 
 # Roadmap
@@ -11,14 +11,16 @@ It records goals, a long-term target, and a punchlist of items that are each one
 It sits on top of a research note that holds the evidence.
 It deliberately has no implementation detail: each item gets its own plan when someone picks it up.
 
-Two modes:
+Three modes:
 
 - **plan**: build a roadmap from research already under way in this conversation.
 - **work**: in a fresh session, take one item from an existing roadmap through reproduction, issue, plan, and build, with the user at each checkpoint.
+- **unattended**: work every available item in one session without stopping, for experiments the user reviews as a finished result.
 
 Arguments: `$ARGUMENTS`
 
 If the arguments don't say which mode, infer it: a roadmap path or "next item" means **work**; otherwise **plan**.
+Never infer **unattended**; it runs only when the user names it.
 
 ## Where roadmaps live
 
@@ -62,11 +64,13 @@ Build on what's already established; don't restart the research.
    - Record decisions with dates where they're made, and keep unresolved ones under "Open decisions".
    - Say which items need the strongest model for reproduction and planning and which can run on a building-tier model end to end, under "Roadmap-specific rules".
    - If the roadmap needs anything that overrides the generic process in work mode (a timebox, a different issue policy), put it in the item or in a "Roadmap-specific rules" section.
+   - If the user means to run it unattended, settle every open decision now and write the "Unattended run" rules from `references/unattended.md`.
 7. **Walk through decisions on request.**
    When the user asks for more detail on a decision, investigate (code, UI, docs, history, tickets) rather than restating the options; facts can change the recommendation, and you should say so plainly when they do.
    Record each decision in the roadmap when it's made and unblock the affected items.
 8. **Finish**: commit the notes per their folder's rules, add or update a memory pointer to the roadmap, and tell the user how to start an item:
    in a fresh session (usually a new worktree), run `/roadmap work <absolute path to roadmap>`.
+   If it's set up to run unattended, run `/roadmap unattended <absolute path to roadmap>` instead.
 
 ## Work mode
 
@@ -165,8 +169,24 @@ Otherwise:
    Send fixes back to a build agent; don't patch the branch yourself unless the fix is trivial.
 3. When all phases are done, review the whole branch yourself against the plan and the item's "done" criteria, then go to step 8, the independent review, which is separate from these.
 
+## Unattended mode
+
+The user invokes `/roadmap unattended <path>`, usually in a fresh session.
+Every rule of work mode applies except the checkpoints, the issue step, pushing, and "exactly one item"; the roadmap's "Unattended run" rules replace them.
+Follow `references/unattended.md`.
+
+1. **Read** the notes rules (if the roadmap is in a notes folder), the roadmap, and its research note, in full.
+2. **Set up.**
+   If the roadmap has no "Unattended run" rules, draft them from the reference and work through its setup checklist.
+   **Checkpoint**, the only one: show the rules, the defaults you'll take for open decisions, and the items in run order, and wait for the user to approve the start.
+   Commit the rules.
+   If the roadmap already has approved rules and a run log with no summary, the run was interrupted: resume without asking.
+3. **Run the loop** in the reference until a stop rule holds.
+4. **Summarize** at the top of the run log, commit, and tell the user where to start reviewing.
+
 ## References
 
 - `references/roadmap-template.md`: skeleton for a new roadmap.
 - `references/parallel-work.md`: claim protocol and overlap rules for running items at the same time.
 - `references/research-fanout.md`: how to brief research agents during plan mode.
+- `references/unattended.md`: rules section, setup checklist, and loop for unattended runs.
