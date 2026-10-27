@@ -10,6 +10,7 @@ Follow the notes folder's conventions for file names and opening lines.
 Roadmap and punchlist, status **draft** (<date>).
 For <user> and for agents picking up one punchlist item at a time with `/roadmap work`.
 Background and evidence are in `<research note>`; read it first.
+Notes accuracy: checked against main on <date>.
 This doc sets goals, order, and PR-sized items. It has no implementation detail: each item gets its own plan when someone picks it up.
 
 ## Goals
@@ -31,11 +32,16 @@ This doc sets goals, order, and PR-sized items. It has no implementation detail:
 
 <Optional. Support tickets, issues, or usage data that bear on priority or on a behaviour change. Private details are fine here and nowhere else.>
 
+## Existing issues
+
+<Optional. Open issues in the tracker that items will fix or must read first, mapped to item IDs.>
+
 ## Roadmap-specific rules
 
 <Optional. Anything that overrides the `/roadmap work` process for this roadmap: item order and phase gates, issue tracker and conventions, plan file and branch names, project build rules, what must stay private.>
 
 - **Who builds:** <which items start on the strongest model and delegate the build, and which run on a building-tier model end to end.>
+- **Fresh worktree setup:** <what a new worktree needs before tests run: binaries, images, test-runner quirks.>
 
 ## Phases and punchlist
 
@@ -71,19 +77,26 @@ Items in the same group touch the same code; don't run them at the same time.
 
 - <Area or files>: <IDs>.
 - Parallel-safe with each other: <IDs>.
+- Other roadmaps: <roadmap and item IDs that touch the same code, and which roadmap owns the change.>
 
 ## Open decisions
 
 - **<Decision> (<who or where it's decided>):** <the question and what it blocks.>
 - ~~**<Decided question>**~~ **Decided <date>:** <outcome; which items it unblocked.>
 
+## Observations from finished items
+
+<Findings from finished items that were deliberately left out of scope, and facts later items need. Keep long handoff notes here, not in the status table.>
+
 ## Status
+
+One row per item; never group IDs in a row, since items are claimed one at a time.
 
 | Item | Status | Issue / branch / plan |
 |---|---|---|
 | <ID> | Next up | |
-| <IDs> | Not started | |
-| <IDs> | Blocked: <reason> | |
+| <ID> | Not started | |
+| <ID> | Blocked: <reason> | |
 ```
 
 ## Status values
@@ -94,4 +107,6 @@ Use these so agents can choose items mechanically:
 - **Not started**: available.
 - **Blocked: <reason>**: not available until the reason is resolved.
 - **In progress (<worktree or checkout>)**: claimed; nobody else takes it.
-- **Ready for push** / **Done** / **Done: not reproduced**: finished, with a note for later items if needed.
+- **Built on `<branch>`, awaiting push**: work finished locally; the user pushes and opens the PR.
+- **Done: merged <date> as #<PR>** / **Done: not reproduced**: finished; plans are usually deleted at this point, so the row keeps the PR number.
+- **Done: needs attention**: an unattended run gave up on the item within its budget; see the run log. Items that depend on it become "Blocked: <ID> needs attention".

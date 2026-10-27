@@ -25,6 +25,7 @@ If the arguments don't say which mode, infer it: a roadmap path or "next item" m
 Roadmaps and their research notes are private working docs, not project files.
 Put them where the user's instructions say private notes go (for example a notes folder named in their global `CLAUDE.md`), and follow that folder's own rules for naming, opening lines, and committing.
 If there's no such instruction, ask where to put them before writing anything.
+For an experiment with nothing private in it, the user may choose to keep the roadmap in the repo instead; then the rest of this section doesn't apply.
 
 Never put roadmap content, paths into the notes, roadmap item IDs, or customer or support-ticket details into commits, PRs, issues, release notes, or code comments.
 
@@ -36,9 +37,10 @@ Build on what's already established; don't restart the research.
 1. **Take stock.**
    Summarize for yourself what the conversation has established: findings (and which you verified directly versus took from research agents), decisions the user made, preferences they stated (for example "incremental, for reviewers"), and open questions.
    Find any notes already written for this topic and read them.
+   Check the other roadmaps in the notes folder for items that touch the same code; overlaps go in the new roadmap, with ownership as an open decision unless the user settles it.
 2. **Find the gaps.**
-   A roadmap needs: evidence the problems are real, how things work today, any docs or promises that describe intended behaviour, evidence about users (support tickets, issues) where it bears on priority or on a behaviour change, and existing good patterns in the code worth copying.
-   List what's missing and tell the user before filling it.
+   A roadmap needs: evidence the problems are real, how things work today, any docs or promises that describe intended behaviour, evidence about users (support tickets, issues) where it bears on priority or on a behaviour change, existing issues in the tracker, and existing good patterns in the code worth copying.
+   **Checkpoint:** list what's missing, and how you'd fill it, before launching any research; keep it short.
    For broad gaps, fan out research agents; see `references/research-fanout.md`.
 3. **Verify the headline claims yourself.**
    Anything that becomes a bug item or drives a decision gets checked directly in the code before it goes in the doc.
@@ -54,6 +56,9 @@ Build on what's already established; don't restart the research.
    - Each item states the problem, what "done" means, and its dependencies, with enough pointers (symbols, files, ticket numbers for private context) that an agent with no conversation history can start.
    - Mark items blocked on a decision or on another item, so an agent choosing "the next item" can't pick them.
    - List which items touch the same code, for parallel work; see `references/parallel-work.md`.
+   - Give every item its own status row; grouped rows can't be claimed one item at a time.
+   - Record the date the notes were last checked against the code, and anything a fresh worktree needs before tests run (runtime binaries, images, test-runner quirks).
+   - Mark the roadmap **draft** while writing; change it to **ready (<date>)** once the user agrees the shape and the first item's decisions are settled.
    - Record decisions with dates where they're made, and keep unresolved ones under "Open decisions".
    - Say which items need the strongest model for reproduction and planning and which can run on a building-tier model end to end, under "Roadmap-specific rules".
    - If the roadmap needs anything that overrides the generic process in work mode (a timebox, a different issue policy), put it in the item or in a "Roadmap-specific rules" section.
