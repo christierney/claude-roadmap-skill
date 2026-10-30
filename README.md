@@ -18,7 +18,7 @@ It deliberately has no implementation detail: each item gets its own plan when s
 Clone into your personal skills folder:
 
 ```sh
-git clone <repo url> ~/.claude/skills/roadmap
+git clone https://github.com/christierney/claude-roadmap-skill.git ~/.claude/skills/roadmap
 ```
 
 Or into a project's `.claude/skills/roadmap` to share it with that project.
