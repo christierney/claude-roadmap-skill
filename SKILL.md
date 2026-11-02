@@ -136,7 +136,12 @@ A stop condition in the plan or the roadmap is a checkpoint too: report what you
     - Confirm it merged (for example `gh pr view`) and that the merged diff matches the local branch.
     - Set the row to "Done: merged <date> as #<PR>" and mark the next item "Next up".
     - Update the text, dependencies, and code-overlap entries of later items the work changed, and record findings deliberately left unfixed under "Observations from finished items".
-    - Move lasting facts out of the plan into the roadmap or research note, then propose deleting the plan and wait, unless the user already asked for it to be deleted.
+    - Decide for yourself whether the plan can go; don't ask.
+      It can go once everything still needed from it is somewhere else: in the roadmap, the research note, an issue, or the code.
+      That includes decisions and their reasons, follow-ups, facts later items rely on, and why review findings were skipped.
+      Move those first, then delete the plan with `git rm` and commit.
+      Keep the plan only if something in it has no other home yet, and say what and why.
+      In your report, say what you moved and where, so the user can check.
     - Update any memory pointer, and commit the notes.
     - Reset the worktree for the next item: detach at `origin/main` and delete the local branch (`git branch -D`, since squash merges leave it unmerged). Never touch the remote.
     - Name the next item and the command to start it.
