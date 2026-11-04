@@ -130,7 +130,12 @@ A stop condition in the plan or the roadmap is a checkpoint too: report what you
 9. **Finish**: rebase on main if parallel items may have merged, rerun the affected tests, commit locally, and follow the user's rules about pushing and PRs (by default: don't).
    Update the item's status-table row (for example "Built on `<branch>`, awaiting push"), record anything later items need to know, fix any note facts the work changed, update any memory pointer to the roadmap, and commit the notes.
    Then tell the user, with:
-   - a draft PR description following the project's PR template: what changed, exactly what was verified and in what scope, and what was left out, with nothing from the notes;
+   - a draft PR description following the project's PR template: what changed, exactly what was verified and in what scope, and what was left out, with nothing from the notes.
+     Write it to `pr-description.md` in the session's scratchpad, then show the whole file in the reply inside one fenced ```` ```markdown ```` block, so it can be copied from the terminal and pasted into GitHub as is: raw markdown, not rendered, blockquoted, or summarized.
+     If the description itself contains code fences, use a longer outer fence (```` ````markdown ````).
+     Give the file's full absolute path next to the block.
+     Don't copy it to the clipboard unless asked.
+     When later changes affect the description, update the file and show the full block and path again;
    - for behaviour users can see, an offer to check it by hand on a running instance when that's cheap.
 10. **After merge**, when the user says the PR merged or asks for cleanup:
     - Confirm it merged (for example `gh pr view`) and that the merged diff matches the local branch.
