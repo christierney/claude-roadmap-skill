@@ -41,6 +41,7 @@ By default it commits locally and leaves pushing and opening PRs to you.
 ## Files
 
 - `SKILL.md`: the skill itself, with all three modes.
+- `references/format.md`: roadmap format v1, the frontmatter and structure rules that let tools read roadmaps as well as agents.
 - `references/roadmap-template.md`: skeleton for a new roadmap, and the status values agents use to choose items.
 - `references/parallel-work.md`: claim protocol and code-overlap rules for running items at the same time.
 - `references/research-fanout.md`: how to brief research agents in plan mode.

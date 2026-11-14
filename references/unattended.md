@@ -46,7 +46,7 @@ Before asking the user to approve the rules:
 6. Have a separate building-tier agent review the diff against the plan and the item's "done" criteria. Send its findings to a build agent for one fix round at most.
 7. Run the gates yourself. If they pass, merge the item branch into the integration branch with `--no-ff`; if the budget is spent, mark the item `Done: needs attention` instead.
 8. Update the status table, append the log entry, commit, check the global stop rules, and go to step 2.
-9. Write the summary at the top of the log: items done, items needing attention and why, items not reached, total wall-clock, why the run stopped, and the three things the user should look at first, including anything left unverified. Commit it and end.
+9. Write the summary at the top of the log: items done, items needing attention and why, items not reached, total wall-clock, why the run stopped, and the three things the user should look at first, including anything left unverified. If every item's row is Done, with none `Done: needs attention`, set the roadmap's status to `done` as `format.md` describes. Commit and end.
 
 ## Keeping a long run on track
 

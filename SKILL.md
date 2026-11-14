@@ -31,6 +31,13 @@ For an experiment with nothing private in it, the user may choose to keep the ro
 
 Never put roadmap content, paths into the notes, roadmap item IDs, or customer or support-ticket details into commits, PRs, issues, release notes, or code comments.
 
+## Roadmap format
+
+A roadmap follows format v1 in `references/format.md`: frontmatter, then a fixed structure that tools as well as agents read.
+Read it before writing or editing a roadmap.
+It also says when the frontmatter changes, in every mode: `updated` with every edit to the roadmap, and `status` as the roadmap goes from draft to ready to done.
+A roadmap with no frontmatter predates the format. Work it as it is: skip the frontmatter updates, and don't add frontmatter unless the user asks.
+
 ## Plan mode
 
 The user invokes this partway through a conversation, after some research and discussion.
@@ -53,14 +60,14 @@ Build on what's already established; don't restart the research.
 5. **Agree the shape before writing the roadmap.**
    Propose goals, a long-term target, phases, and rough items in the conversation, with your recommendation for ordering and for what must be agreed first (for example an ADR for team buy-in).
    Ask about anything that changes the ordering: priorities, how incremental to be, which decisions block which items.
-6. **Write the roadmap** from `references/roadmap-template.md`.
+6. **Write the roadmap** from `references/roadmap-template.md`, with its frontmatter filled in.
    - Every item is one standalone PR that a reviewer can take in one sitting; split anything bigger, and say "several PRs" where an item is really a series.
    - Each item states the problem, what "done" means, and its dependencies, with enough pointers (symbols, files, ticket numbers for private context) that an agent with no conversation history can start.
    - Mark items blocked on a decision or on another item, so an agent choosing "the next item" can't pick them.
    - List which items touch the same code, for parallel work; see `references/parallel-work.md`.
    - Give every item its own status row; grouped rows can't be claimed one item at a time.
    - Record the date the notes were last checked against the code, and anything a fresh worktree needs before tests run (runtime binaries, images, test-runner quirks).
-   - Mark the roadmap **draft** while writing; change it to **ready (<date>)** once the user agrees the shape and the first item's decisions are settled.
+   - Mark the roadmap **draft** while writing; change it to **ready (<date>)** once the user agrees the shape and the first item's decisions are settled. Change the frontmatter's `status` in the same edit.
    - Record decisions with dates where they're made, and keep unresolved ones under "Open decisions".
    - Say which items need the strongest model for reproduction and planning and which can run on a building-tier model end to end, under "Roadmap-specific rules".
    - If the roadmap needs anything that overrides the generic process in work mode (a timebox, a different issue policy), put it in the item or in a "Roadmap-specific rules" section.
@@ -140,6 +147,7 @@ A stop condition in the plan or the roadmap is a checkpoint too: report what you
 10. **After merge**, when the user says the PR merged or asks for cleanup:
     - Confirm it merged (for example `gh pr view`) and that the merged diff matches the local branch.
     - Set the row to "Done: merged <date> as #<PR>" and mark the next item "Next up".
+      If every row is now Done, with none "Done: needs attention", set the roadmap's status to `done` as `references/format.md` describes.
     - Update the text, dependencies, and code-overlap entries of later items the work changed, and record findings deliberately left unfixed under "Observations from finished items".
     - Decide for yourself whether the plan can go; don't ask.
       It can go once everything still needed from it is somewhere else: in the roadmap, the research note, an issue, or the code.
@@ -196,7 +204,8 @@ Follow `references/unattended.md`.
 
 ## References
 
-- `references/roadmap-template.md`: skeleton for a new roadmap.
+- `references/format.md`: roadmap format v1: the frontmatter, when to update it, and the structure rules.
+- `references/roadmap-template.md`: skeleton for a new roadmap, and the status values.
 - `references/parallel-work.md`: claim protocol and overlap rules for running items at the same time.
 - `references/research-fanout.md`: how to brief research agents during plan mode.
 - `references/unattended.md`: rules section, setup checklist, and loop for unattended runs.

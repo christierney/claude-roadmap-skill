@@ -2,9 +2,19 @@
 
 Copy the skeleton below into the notes folder and fill it in.
 Delete any section that has nothing in it, except "Status".
-Follow the notes folder's conventions for file names and opening lines.
+Follow the notes folder's conventions for file names and opening lines, keeping the frontmatter first.
+The frontmatter and the structure are format v1; `format.md` has the rules, and tools that read roadmaps depend on them.
 
 ```markdown
+---
+roadmap: 1
+title: <Topic>
+summary: <one-line summary of the direction>
+status: draft
+repo: <owner/name of the GitHub repo that #1234 refers to; delete this line if there is none>
+updated: <YYYY-MM-DD>
+---
+
 # <Topic> roadmap: <one-line summary of the direction>
 
 Roadmap and punchlist, status **draft** (<date>).
@@ -101,7 +111,7 @@ One row per item; never group IDs in a row, since items are claimed one at a tim
 
 ## Status values
 
-Use these so agents can choose items mechanically:
+Start every status cell with one of these, spelled as written, so agents and tools can read it mechanically:
 
 - **Next up**: the item to take first.
 - **Not started**: available.
@@ -109,4 +119,5 @@ Use these so agents can choose items mechanically:
 - **In progress (<worktree or checkout>)**: claimed; nobody else takes it.
 - **Built on `<branch>`, awaiting push**: work finished locally; the user pushes and opens the PR.
 - **Done: merged <date> as #<PR>** / **Done: not reproduced**: finished; plans are usually deleted at this point, so the row keeps the PR number.
+  An unattended run, which opens no PR, writes **Done: merged <date> into `<integration branch>` (<commit>)**.
 - **Done: needs attention**: an unattended run gave up on the item within its budget; see the run log. Items that depend on it become "Blocked: <ID> needs attention".
