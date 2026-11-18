@@ -159,7 +159,8 @@ A stop condition in the plan or the roadmap is a checkpoint too: report what you
     - Reset the worktree for the next item: detach at `origin/main` and delete the local branch (`git branch -D`, since squash merges leave it unmerged). Never touch the remote.
     - Name the next item and the command to start it.
 
-Between Finish and merge the user may bring the session back for follow-ups:
+Between Finish and merge the user may bring the session back for follow-ups.
+Once you learn the PR's number (the user mentions it, or `gh pr list --head <branch>` finds it), set the row to "In review: PR #<N>" and commit the notes.
 
 - **Human review comments:** fix what the PR introduced; route problems that predate it to the roadmap item that owns them.
 - **CI failures:** compare with main before assuming the PR caused it.

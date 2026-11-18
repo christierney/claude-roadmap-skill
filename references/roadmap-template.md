@@ -118,6 +118,7 @@ Start every status cell with one of these, spelled as written, so agents and too
 - **Blocked: <reason>**: not available until the reason is resolved.
 - **In progress (<worktree or checkout>)**: claimed; nobody else takes it.
 - **Built on `<branch>`, awaiting push**: work finished locally; the user pushes and opens the PR.
+- **In review: PR #<N>**: the PR is open, awaiting review and merge.
 - **Done: merged <date> as #<PR>** / **Done: not reproduced**: finished; plans are usually deleted at this point, so the row keeps the PR number.
   An unattended run, which opens no PR, writes **Done: merged <date> into `<integration branch>` (<commit>)**.
 - **Done: needs attention**: an unattended run gave up on the item within its budget; see the run log. Items that depend on it become "Blocked: <ID> needs attention".
